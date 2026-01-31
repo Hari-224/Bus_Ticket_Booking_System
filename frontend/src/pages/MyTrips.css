@@ -1,0 +1,224 @@
+.my-trips-page .page-header {
+    margin-bottom: var(--spacing-xl);
+}
+
+.my-trips-page .page-header h1 {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    font-size: var(--font-size-3xl);
+    margin-bottom: var(--spacing-xs);
+}
+
+.my-trips-page .page-header h1 svg {
+    color: var(--accent-primary);
+}
+
+.my-trips-page .page-header p {
+    color: var(--text-secondary);
+}
+
+/* Filters */
+.trips-filters {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-xl);
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: var(--spacing-sm) var(--spacing-lg);
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-full);
+    color: var(--text-secondary);
+    font-family: var(--font-family);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.filter-btn:hover {
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+}
+
+.filter-btn.active {
+    background: var(--accent-primary);
+    border-color: var(--accent-primary);
+    color: white;
+}
+
+/* Trips List */
+.trips-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+/* No Trips */
+.no-trips {
+    text-align: center;
+    padding: var(--spacing-2xl);
+}
+
+.no-trips h3 {
+    margin-bottom: var(--spacing-sm);
+}
+
+.no-trips p {
+    margin-bottom: var(--spacing-lg);
+}
+
+.no-trips .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+/* Trip Card */
+.trip-card {
+    text-decoration: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.trip-card:hover {
+    transform: translateY(-2px);
+}
+
+.trip-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-md) var(--spacing-lg);
+    background: var(--bg-tertiary);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.trip-date {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+}
+
+.trip-date svg {
+    color: var(--accent-primary);
+}
+
+.trip-body {
+    padding: var(--spacing-lg);
+}
+
+/* Trip Route */
+.trip-route {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-lg);
+    border-bottom: 1px dashed var(--border-color);
+}
+
+.route-point {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-xs);
+    min-width: 80px;
+}
+
+.point-time {
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.point-city {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+}
+
+.route-arrow {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: 0 var(--spacing-md);
+}
+
+.route-line {
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+}
+
+.route-icon {
+    color: var(--accent-primary);
+    font-size: 1.25rem;
+}
+
+/* Trip Details */
+.trip-details {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-md);
+}
+
+@media (max-width: 640px) {
+    .trip-details {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.detail-label {
+    font-size: var(--font-size-xs);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.detail-value {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.detail-value.pnr {
+    font-family: monospace;
+    color: var(--accent-primary);
+}
+
+/* Trip Footer */
+.trip-footer {
+    padding: var(--spacing-md) var(--spacing-lg);
+    background: var(--bg-tertiary);
+    border-top: 1px solid var(--border-color);
+}
+
+.view-details {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    color: var(--accent-primary);
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+}
+
+.view-details svg {
+    transition: transform var(--transition-fast);
+}
+
+.trip-card:hover .view-details svg {
+    transform: translateX(4px);
+}

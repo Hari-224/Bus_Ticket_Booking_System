@@ -1,0 +1,788 @@
+.ticket-view-page {
+    padding: var(--spacing-lg) 0;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-xl);
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+.back-link:hover {
+    color: var(--accent-primary);
+}
+
+/* Ticket Container */
+.ticket-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.ticket {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+}
+
+/* Ticket Header */
+.ticket-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-lg);
+    background: var(--accent-gradient);
+    color: white;
+}
+
+.ticket-brand {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+}
+
+.brand-icon {
+    font-size: 1.5rem;
+}
+
+.status-badge {
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.status-badge.confirmed {
+    background: var(--success);
+    color: white;
+}
+
+.status-badge.pending {
+    background: var(--warning);
+    color: #000;
+}
+
+.status-badge.cancelled {
+    background: var(--error);
+    color: white;
+}
+
+/* PNR Section */
+.pnr-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-lg);
+}
+
+.pnr-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.pnr-label {
+    font-size: var(--font-size-xs);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.pnr-value {
+    font-size: var(--font-size-2xl);
+    font-weight: 800;
+    font-family: monospace;
+    letter-spacing: 0.05em;
+    color: var(--accent-primary);
+}
+
+.qr-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-md);
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-xs);
+    color: var(--text-muted);
+}
+
+.qr-placeholder svg {
+    font-size: 2.5rem;
+    color: var(--text-muted);
+}
+
+/* Ticket Divider */
+.ticket-divider {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin: 0 var(--spacing-lg);
+}
+
+.divider-circle {
+    width: 20px;
+    height: 20px;
+    background: var(--bg-primary);
+    border-radius: 50%;
+    position: absolute;
+}
+
+.divider-circle.left {
+    left: -30px;
+}
+
+.divider-circle.right {
+    right: -30px;
+}
+
+.divider-line {
+    flex: 1;
+    height: 0;
+    border-top: 2px dashed var(--border-color);
+}
+
+/* Journey Section */
+.journey-section {
+    padding: var(--spacing-lg);
+}
+
+.journey-date {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+}
+
+.journey-date svg {
+    color: var(--accent-primary);
+}
+
+.journey-route {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.route-point {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.route-point .point-marker {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 3px solid;
+}
+
+.route-point.departure .point-marker {
+    border-color: var(--success);
+    background: var(--success-light);
+}
+
+.route-point.arrival .point-marker {
+    border-color: var(--error);
+    background: var(--error-light);
+}
+
+.point-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.point-time {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.point-city {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+}
+
+.route-connector {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-left: 7px;
+    padding-left: var(--spacing-lg);
+}
+
+.connector-line {
+    width: 2px;
+    height: 30px;
+    background: linear-gradient(180deg, var(--success) 0%, var(--error) 100%);
+}
+
+.connector-duration {
+    font-size: var(--font-size-xs);
+    color: var(--text-muted);
+}
+
+/* Bus Section */
+.bus-section,
+.passengers-section,
+.fare-section {
+    padding: var(--spacing-lg);
+}
+
+.bus-section h4,
+.passengers-section h4,
+.fare-section h4 {
+    margin-bottom: var(--spacing-md);
+    font-size: var(--font-size-sm);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.bus-info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-md);
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.info-label {
+    font-size: var(--font-size-xs);
+    color: var(--text-muted);
+}
+
+.info-value {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* Passengers Table */
+.passengers-table {
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+
+.table-header,
+.table-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md);
+}
+
+.table-header {
+    background: rgba(99, 102, 241, 0.1);
+    font-size: var(--font-size-xs);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.table-row {
+    font-size: var(--font-size-sm);
+    border-top: 1px solid var(--border-color);
+}
+
+.table-row.cancelled {
+    opacity: 0.5;
+    text-decoration: line-through;
+}
+
+.seat-number {
+    font-weight: 600;
+    color: var(--accent-primary);
+}
+
+/* Fare Breakdown */
+.fare-breakdown {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.fare-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+}
+
+.fare-row.discount {
+    color: var(--success);
+}
+
+.fare-row.refund {
+    color: var(--accent-primary);
+}
+
+.fare-row.total {
+    padding-top: var(--spacing-sm);
+    border-top: 1px solid var(--border-color);
+    font-weight: 700;
+    font-size: var(--font-size-lg);
+    color: var(--text-primary);
+}
+
+/* Contact Section */
+.contact-section {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-xl);
+    padding: var(--spacing-lg);
+    background: var(--bg-tertiary);
+    flex-wrap: wrap;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+}
+
+.contact-item svg {
+    color: var(--accent-primary);
+}
+
+/* Ticket Actions */
+.ticket-actions {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-xl);
+    flex-wrap: wrap;
+}
+
+.ticket-actions .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+/* Modal */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: var(--spacing-lg);
+}
+
+.modal-content {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-xl);
+    max-width: 400px;
+    width: 100%;
+    border: 1px solid var(--border-color);
+}
+
+.modal-content h3 {
+    margin-bottom: var(--spacing-md);
+}
+
+.modal-content p {
+    margin-bottom: var(--spacing-md);
+}
+
+.cancel-note {
+    font-size: var(--font-size-sm);
+    color: var(--text-muted);
+    padding: var(--spacing-md);
+    background: var(--warning-light);
+    border-radius: var(--radius-md);
+}
+
+.modal-actions {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+}
+
+.modal-actions .btn {
+    flex: 1;
+}
+
+/* Print Styles */
+@media print {
+    @page {
+        margin: 10mm;
+        size: A4;
+    }
+
+    /* Hide UI Elements */
+    .no-print,
+    .navbar,
+    nav,
+    .back-link,
+    .modal-overlay,
+    .btn,
+    .page-header,
+    .trips-filters,
+    footer,
+    .ticket-actions,
+    .form-card,
+    .auth-page .auth-container,
+    .auth-header {
+        display: none !important;
+    }
+
+    /* Reset Body */
+    body {
+        background: white !important;
+        color: #000 !important;
+        font-family: 'Helvetica Neue', Arial, sans-serif !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        height: auto !important;
+        width: 100% !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    /* Main Container Reset */
+    .app,
+    .main,
+    .page-container,
+    .container,
+    .auth-page {
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        background: white !important;
+        min-height: auto !important;
+        display: block !important;
+    }
+
+    /* Ticket Container */
+    .ticket-view-page {
+        padding: 0 !important;
+        display: block !important;
+    }
+
+    .ticket-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        display: block !important;
+    }
+
+    /* Ticket Card Reset */
+    .ticket {
+        background: white !important;
+        border: 2px solid #000 !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        color: #000 !important;
+        display: block !important;
+        max-width: 100% !important;
+    }
+
+    /* 1. Header */
+    .ticket-header {
+        background: white !important;
+        color: black !important;
+        border-bottom: 2px solid #000;
+        padding: 20px;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        display: flex !important;
+    }
+
+    .ticket-brand {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .ticket-brand span {
+        font-size: 24px;
+        font-weight: 900;
+        text-transform: uppercase;
+        color: #000;
+        letter-spacing: 1px;
+    }
+
+    .ticket-brand::after {
+        content: 'Electronic Reservation Slip (ERS)';
+        font-size: 12px;
+        font-weight: normal;
+        color: #444;
+        text-transform: uppercase;
+    }
+
+    .ticket-status {
+        text-align: right;
+    }
+
+    .status-badge {
+        background: transparent !important;
+        color: #000 !important;
+        border: 2px solid #000;
+        padding: 5px 15px;
+        font-size: 14px;
+        font-weight: bold;
+        border-radius: 4px;
+    }
+
+    /* 2. PNR & Key Info Row */
+    .pnr-section {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        padding: 15px 20px;
+        border-bottom: 1px solid #000;
+        background: #f9f9f9 !important;
+    }
+
+    .pnr-info {
+        gap: 5px;
+    }
+
+    .pnr-label {
+        font-size: 10px;
+        color: #666;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    .pnr-value {
+        font-size: 18px;
+        color: #000;
+        font-weight: bold;
+    }
+
+    .qr-placeholder {
+        display: none !important;
+    }
+
+    /* 3. Journey Details */
+    .journey-section {
+        padding: 20px;
+        border-bottom: 1px solid #000;
+        display: block !important;
+    }
+
+    .journey-date {
+        display: inline-block;
+        font-size: 14px;
+        font-weight: bold;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 1px dashed #ccc;
+        width: 100%;
+        color: #000 !important;
+    }
+
+    .journey-route {
+        display: grid !important;
+        grid-template-columns: 1fr auto 1fr;
+        gap: 30px;
+        align-items: center;
+        margin-top: 10px;
+    }
+
+    .route-point {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .route-point.arrival {
+        text-align: right;
+        align-items: flex-end;
+    }
+
+    .point-time {
+        font-size: 20px;
+        font-weight: bold;
+        color: #000;
+    }
+
+    .point-city {
+        font-size: 12px;
+        text-transform: uppercase;
+        color: #444;
+    }
+
+    /* Hide graphical elements */
+    .point-marker,
+    .route-connector,
+    .ticket-divider,
+    .brand-icon {
+        display: none !important;
+    }
+
+    /* 4. Bus Details */
+    .bus-section {
+        padding: 20px;
+        border-bottom: 1px solid #000;
+    }
+
+    .bus-section h4 {
+        margin: 0 0 10px 0;
+        font-size: 12px;
+        font-weight: bold;
+        text-transform: uppercase;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 5px;
+        color: #000;
+    }
+
+    .bus-info-grid {
+        display: grid !important;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 15px;
+    }
+
+    .info-item .info-label {
+        font-size: 10px;
+        color: #666;
+    }
+
+    .info-item .info-value {
+        font-size: 12px;
+        font-weight: bold;
+        color: #000;
+    }
+
+    /* 5. Passenger Table */
+    .passengers-section {
+        padding: 20px;
+        border-bottom: 1px solid #000;
+    }
+
+    .passengers-section h4 {
+        font-size: 12px;
+        font-weight: bold;
+        text-transform: uppercase;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 5px;
+        margin-bottom: 10px;
+        color: #000;
+    }
+
+    .passengers-table {
+        display: table !important;
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid #000;
+        background: white;
+    }
+
+    .table-header {
+        display: table-row !important;
+        background: #eee !important;
+        font-weight: bold;
+        -webkit-print-color-adjust: exact;
+    }
+
+    .table-header span {
+        display: table-cell !important;
+        padding: 8px;
+        border: 1px solid #000;
+        font-size: 11px;
+        text-transform: uppercase;
+    }
+
+    .table-row {
+        display: table-row !important;
+        border: none;
+    }
+
+    .table-row span {
+        display: table-cell !important;
+        padding: 8px;
+        border: 1px solid #000;
+        font-size: 12px;
+        color: #000;
+    }
+
+    .seat-number {
+        color: #000 !important;
+        font-weight: bold;
+    }
+
+    /* 6. Contact & Fare */
+    .contact-section {
+        display: flex !important;
+        justify-content: space-between;
+        padding: 10px 20px;
+        border-bottom: 1px solid #000;
+        background: white;
+        font-size: 12px;
+    }
+
+    .contact-item {
+        color: #000 !important;
+    }
+
+    .fare-section {
+        padding: 20px;
+        text-align: right;
+    }
+
+    .fare-breakdown {
+        display: inline-block;
+        min-width: 200px;
+        border: 1px solid #000;
+        padding: 10px;
+    }
+
+    .fare-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
+        font-size: 12px;
+    }
+
+    .fare-row.total {
+        margin-top: 10px;
+        padding-top: 5px;
+        border-top: 1px solid #000;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    /* Footer / Terms */
+    .ticket::after {
+        content: 'Thank you for travelling with BusEase. For support, contact 8838008585.';
+        display: block;
+        margin: 20px;
+        padding-top: 10px;
+        border-top: 1px solid #ccc;
+        text-align: center;
+        font-size: 10px;
+        color: #666;
+    }
+}

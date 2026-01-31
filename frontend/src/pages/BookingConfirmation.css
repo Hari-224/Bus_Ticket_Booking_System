@@ -1,0 +1,303 @@
+.confirmation-page {
+    padding: var(--spacing-2xl) 0;
+}
+
+.confirmation-content {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* Success Header */
+.success-header {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+}
+
+.success-icon-wrapper {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto var(--spacing-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--success-light);
+    border-radius: 50%;
+    animation: scaleIn 0.5s ease forwards;
+}
+
+@keyframes scaleIn {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.success-icon {
+    font-size: 4rem;
+    color: var(--success);
+}
+
+.success-header h1 {
+    font-size: var(--font-size-3xl);
+    margin-bottom: var(--spacing-sm);
+}
+
+.success-header p {
+    font-size: var(--font-size-lg);
+}
+
+/* PNR Card */
+.pnr-card {
+    text-align: center;
+    padding: var(--spacing-xl);
+    margin-bottom: var(--spacing-xl);
+    border-radius: var(--radius-xl);
+}
+
+.pnr-label {
+    font-size: var(--font-size-sm);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: var(--spacing-sm);
+}
+
+.pnr-number {
+    font-size: var(--font-size-4xl);
+    font-weight: 800;
+    font-family: monospace;
+    letter-spacing: 0.1em;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: var(--spacing-sm);
+}
+
+.pnr-info {
+    font-size: var(--font-size-sm);
+}
+
+/* Ticket Summary */
+.ticket-summary {
+    margin-bottom: var(--spacing-xl);
+    overflow: hidden;
+}
+
+.ticket-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-lg);
+    background: var(--accent-gradient);
+    color: white;
+}
+
+.ticket-icon {
+    font-size: 1.5rem;
+}
+
+.ticket-header h2 {
+    font-size: var(--font-size-lg);
+    color: white;
+}
+
+.ticket-body {
+    padding: var(--spacing-lg);
+}
+
+/* Info Section */
+.info-section {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+    padding-bottom: var(--spacing-lg);
+    border-bottom: 1px dashed var(--border-color);
+    margin-bottom: var(--spacing-lg);
+}
+
+.section-icon {
+    font-size: 1.5rem;
+    color: var(--accent-primary);
+    margin-top: 2px;
+}
+
+.info-section h4 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-xs);
+}
+
+.bus-number {
+    font-size: var(--font-size-sm);
+    color: var(--text-muted);
+    margin-right: var(--spacing-sm);
+}
+
+/* Journey Section */
+.journey-section {
+    padding: var(--spacing-lg) 0;
+    border-bottom: 1px dashed var(--border-color);
+    margin-bottom: var(--spacing-lg);
+}
+
+.journey-point {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+}
+
+.point-marker {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 3px solid;
+    flex-shrink: 0;
+    margin-top: 4px;
+}
+
+.point-marker.departure {
+    border-color: var(--success);
+    background: var(--success-light);
+}
+
+.point-marker.arrival {
+    border-color: var(--error);
+    background: var(--error-light);
+}
+
+.point-details {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.point-city {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.point-time {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+}
+
+.journey-line {
+    width: 2px;
+    height: 40px;
+    background: linear-gradient(180deg, var(--success) 0%, var(--error) 100%);
+    margin: var(--spacing-sm) 0 var(--spacing-sm) 7px;
+}
+
+/* Passengers Section */
+.passengers-section {
+    padding-bottom: var(--spacing-lg);
+    border-bottom: 1px dashed var(--border-color);
+    margin-bottom: var(--spacing-lg);
+}
+
+.passengers-section h4 {
+    margin-bottom: var(--spacing-md);
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.passengers-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.passenger-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-md);
+}
+
+.passenger-icon {
+    color: var(--accent-primary);
+}
+
+.passenger-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.passenger-name {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.passenger-details {
+    font-size: var(--font-size-sm);
+    color: var(--text-muted);
+}
+
+.passenger-seat {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background: rgba(99, 102, 241, 0.1);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    color: var(--accent-primary);
+    font-weight: 600;
+}
+
+/* Fare Section */
+.fare-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.fare-row {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-weight: 600;
+}
+
+.fare-amount {
+    font-size: var(--font-size-xl);
+    color: var(--success);
+}
+
+/* Actions */
+.confirmation-actions {
+    display: flex;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+}
+
+.confirmation-actions .btn {
+    flex: 1;
+    min-width: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+}
+
+@media (max-width: 640px) {
+    .confirmation-actions {
+        flex-direction: column;
+    }
+
+    .confirmation-actions .btn {
+        min-width: auto;
+    }
+}
