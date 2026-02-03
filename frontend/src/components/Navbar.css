@@ -23,21 +23,15 @@
     align-items: center;
     gap: var(--spacing-sm);
     text-decoration: none;
-    transition: transform var(--transition-base);
-}
-
-.navbar-brand:hover {
-    transform: scale(1.02);
 }
 
 .brand-icon {
-    font-size: 2rem;
+    font-size: 1.75rem;
     color: var(--accent-primary);
-    filter: drop-shadow(0 2px 4px rgba(59, 130, 246, 0.3));
 }
 
 .brand-text {
-    font-size: var(--font-size-2xl);
+    font-size: var(--font-size-xl);
     font-weight: 800;
     color: var(--text-primary);
     letter-spacing: -0.02em;
@@ -64,30 +58,13 @@
     color: var(--text-secondary);
     font-weight: 500;
     text-decoration: none;
-    transition: all var(--transition-fast);
-    border-radius: var(--radius-lg);
-    position: relative;
-}
-
-.nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 2px;
-    background: var(--accent-gradient);
-    transition: width var(--transition-base);
+    transition: color var(--transition-fast);
+    border-radius: var(--radius-md);
 }
 
 .nav-link:hover {
     color: var(--accent-primary);
-    background: rgba(59, 130, 246, 0.08);
-}
-
-.nav-link:hover::after {
-    width: 70%;
+    background: rgba(37, 99, 235, 0.05);
 }
 
 .user-menu {
@@ -136,17 +113,39 @@
     box-shadow: var(--shadow-md);
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
+    .navbar-container {
+        padding: 0 var(--spacing-md);
+    }
+    
     .navbar-links {
         gap: var(--spacing-sm);
     }
-
-    .nav-link span,
+    
+    .nav-link {
+        padding: var(--spacing-sm);
+        font-size: var(--font-size-sm);
+    }
+    
+    .nav-link span {
+        display: none;
+    }
+    
+    .user-info span {
+        display: none;
+    }
+    
     .logout-btn span {
         display: none;
     }
+    
+    .brand-text {
+        font-size: var(--font-size-lg);
+    }
+}
 
-    .user-info span {
-        display: none;
+@media (max-width: 640px) {
+    .navbar-links {
+        gap: var(--spacing-xs);
     }
 }

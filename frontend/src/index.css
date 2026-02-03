@@ -13,14 +13,14 @@
   --bg-glass: rgba(255, 255, 255, 0.85);
   --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   
-  /* Accent Colors - Vibrant Bus Theme */
-  --accent-primary: #3b82f6;
-  --accent-secondary: #8b5cf6;
-  --accent-orange: #f97316;
-  --accent-teal: #14b8a6;
-  --accent-gradient: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
-  --accent-soft: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 100%);
-  --accent-glow: 0 8px 32px rgba(59, 130, 246, 0.2);
+  /* Accent Colors - Professional Theme */
+  --accent-primary: #2563eb;
+  --accent-secondary: #1e40af;
+  --accent-orange: #f59e0b;
+  --accent-teal: #0d9488;
+  --accent-gradient: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+  --accent-soft: #eff6ff;
+  --accent-glow: 0 4px 16px rgba(37, 99, 235, 0.15);
   
   /* Success/Error Colors */
   --success: #10b981;
@@ -41,13 +41,13 @@
   /* Border & Shadow */
   --border-color: #e2e8f0;
   --border-light: #f1f5f9;
-  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.12);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
-  --shadow-glow: 0 0 40px rgba(59, 130, 246, 0.2);
-  --shadow-colorful: 0 8px 32px rgba(59, 130, 246, 0.15);
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 8px 16px rgba(0, 0, 0, 0.12);
+  --shadow-glow: 0 0 20px rgba(37, 99, 235, 0.1);
+  --shadow-colorful: 0 4px 12px rgba(37, 99, 235, 0.1);
   
   /* Typography */
   --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -107,7 +107,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Background Pattern - Light Modern with Bus Routes */
+/* Background Pattern - Subtle */
 body::before {
   content: '';
   position: fixed;
@@ -115,28 +115,9 @@ body::before {
   left: 0;
   right: 0;
   bottom: 0;
-  background: 
-    radial-gradient(circle at 15% 15%, rgba(59, 130, 246, 0.08) 0%, transparent 40%),
-    radial-gradient(circle at 85% 20%, rgba(139, 92, 246, 0.06) 0%, transparent 40%),
-    radial-gradient(circle at 50% 80%, rgba(249, 115, 22, 0.05) 0%, transparent 40%);
+  background: radial-gradient(circle at 20% 20%, rgba(37, 99, 235, 0.03) 0%, transparent 50%);
   pointer-events: none;
   z-index: -1;
-}
-
-/* Decorative Road Lines */
-body::after {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: 
-    linear-gradient(90deg, transparent 0%, transparent 49.5%, rgba(59, 130, 246, 0.03) 49.5%, rgba(59, 130, 246, 0.03) 50.5%, transparent 50.5%);
-  background-size: 100px 100px;
-  pointer-events: none;
-  z-index: -1;
-  opacity: 0.5;
 }
 
 /* Typography */
@@ -185,18 +166,18 @@ a:hover {
 }
 
 .btn-primary {
-  background: var(--accent-gradient);
+  background: var(--accent-primary);
   color: white;
-  box-shadow: var(--shadow-md), var(--accent-glow);
+  box-shadow: var(--shadow-sm);
 }
 
 .btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-lg), 0 0 40px rgba(99, 102, 241, 0.4);
+  background: var(--accent-secondary);
+  box-shadow: var(--shadow-md);
 }
 
 .btn-primary:active {
-  transform: translateY(0);
+  transform: scale(0.98);
 }
 
 .btn-secondary {
@@ -306,9 +287,8 @@ a:hover {
 }
 
 .card:hover {
-  border-color: rgba(59, 130, 246, 0.3);
-  box-shadow: var(--shadow-xl);
-  transform: translateY(-2px);
+  border-color: var(--accent-primary);
+  box-shadow: var(--shadow-lg);
 }
 
 .card-glass {
@@ -342,13 +322,25 @@ a:hover {
 .grid-3 { grid-template-columns: repeat(3, 1fr); }
 .grid-4 { grid-template-columns: repeat(4, 1fr); }
 
+/* Responsive Design */
+@media (max-width: 1280px) {
+  .container { padding: 0 var(--spacing-md); }
+}
+
 @media (max-width: 1024px) {
   .grid-4 { grid-template-columns: repeat(2, 1fr); }
   .grid-3 { grid-template-columns: repeat(2, 1fr); }
+  html { font-size: 15px; }
+}
+
+@media (max-width: 768px) {
+  .grid-4, .grid-3, .grid-2 { grid-template-columns: 1fr; }
+  html { font-size: 14px; }
+  .page-container { padding: var(--spacing-lg) 0; }
 }
 
 @media (max-width: 640px) {
-  .grid-4, .grid-3, .grid-2 { grid-template-columns: 1fr; }
+  .container { padding: 0 var(--spacing-sm); }
 }
 
 /* Flex utilities */
