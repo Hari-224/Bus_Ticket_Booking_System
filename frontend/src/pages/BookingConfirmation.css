@@ -1,28 +1,31 @@
 .confirmation-page {
-    padding: var(--spacing-2xl) 0;
+    padding: var(--spacing-3xl) 0;
+    background: linear-gradient(180deg, #dbeafe 0%, var(--bg-primary) 50%);
+    min-height: 100vh;
 }
 
 .confirmation-content {
-    max-width: 700px;
+    max-width: 800px;
     margin: 0 auto;
 }
 
-/* Success Header */
+/* Success Header - Celebratory Design */
 .success-header {
     text-align: center;
-    margin-bottom: var(--spacing-xl);
+    margin-bottom: var(--spacing-2xl);
 }
 
 .success-icon-wrapper {
-    width: 100px;
-    height: 100px;
-    margin: 0 auto var(--spacing-lg);
+    width: 120px;
+    height: 120px;
+    margin: 0 auto var(--spacing-xl);
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--success-light);
+    background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
     border-radius: 50%;
-    animation: scaleIn 0.5s ease forwards;
+    animation: scaleIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+    box-shadow: 0 8px 32px rgba(16, 185, 129, 0.3);
 }
 
 @keyframes scaleIn {
@@ -42,62 +45,79 @@
 }
 
 .success-icon {
-    font-size: 4rem;
+    font-size: 5rem;
     color: var(--success);
+    filter: drop-shadow(0 4px 8px rgba(16, 185, 129, 0.3));
 }
 
 .success-header h1 {
-    font-size: var(--font-size-3xl);
-    margin-bottom: var(--spacing-sm);
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin-bottom: var(--spacing-md);
+    font-weight: 900;
+    color: var(--text-primary);
 }
 
 .success-header p {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-xl);
+    color: var(--text-secondary);
 }
 
-/* PNR Card */
+/* PNR Card - Celebratory Gradient Design */
 .pnr-card {
     text-align: center;
-    padding: var(--spacing-xl);
-    margin-bottom: var(--spacing-xl);
-    border-radius: var(--radius-xl);
+    padding: var(--spacing-2xl);
+    margin-bottom: var(--spacing-2xl);
+    border-radius: var(--radius-3xl);
+    background: white;
+    border: 3px solid var(--success);
+    box-shadow: var(--shadow-xl), 0 0 40px rgba(16, 185, 129, 0.2);
 }
 
 .pnr-label {
-    font-size: var(--font-size-sm);
-    color: var(--text-muted);
+    font-size: var(--font-size-base);
+    color: var(--text-secondary);
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: var(--spacing-sm);
+    letter-spacing: 0.15em;
+    margin-bottom: var(--spacing-md);
+    font-weight: 700;
 }
 
 .pnr-number {
-    font-size: var(--font-size-4xl);
-    font-weight: 800;
-    font-family: monospace;
-    letter-spacing: 0.1em;
-    background: var(--accent-gradient);
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 900;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 0.15em;
+    background: linear-gradient(135deg, var(--success) 0%, var(--accent-teal) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin-bottom: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+    text-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
 }
 
 .pnr-info {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-base);
+    color: var(--text-secondary);
 }
 
-/* Ticket Summary */
+/* Ticket Summary - Modern Card */
 .ticket-summary {
-    margin-bottom: var(--spacing-xl);
+    margin-bottom: var(--spacing-2xl);
     overflow: hidden;
+    background: white;
+    border-radius: var(--radius-2xl);
+    border: 2px solid var(--border-color);
+    box-shadow: var(--shadow-lg);
 }
 
 .ticket-header {
     display: flex;
     align-items: center;
-    gap: var(--spacing-md);
-    padding: var(--spacing-lg);
+    gap: var(--spacing-lg);
+    padding: var(--spacing-xl);
+    background: linear-gradient(135deg, #f8fafc 0%, white 100%);
+    border-bottom: 2px solid var(--border-light);
+}
     background: var(--accent-gradient);
     color: white;
 }

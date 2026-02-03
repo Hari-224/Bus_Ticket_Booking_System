@@ -1,33 +1,39 @@
 .search-results-page {
     padding-top: var(--spacing-lg);
+    background: var(--bg-primary);
 }
 
-/* Search Summary */
+/* Search Summary - Enhanced Modern Card */
 .search-summary {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: var(--spacing-lg) var(--spacing-xl);
-    margin-bottom: var(--spacing-xl);
-    border-radius: var(--radius-xl);
+    padding: var(--spacing-xl) var(--spacing-2xl);
+    margin-bottom: var(--spacing-2xl);
+    border-radius: var(--radius-2xl);
     flex-wrap: wrap;
-    gap: var(--spacing-md);
+    gap: var(--spacing-lg);
+    background: white;
+    border: 2px solid var(--border-color);
+    box-shadow: var(--shadow-lg);
 }
 
 .route-info {
     display: flex;
     align-items: center;
-    gap: var(--spacing-md);
+    gap: var(--spacing-lg);
 }
 
 .route-info .city {
-    font-size: var(--font-size-xl);
-    font-weight: 700;
+    font-size: var(--font-size-2xl);
+    font-weight: 800;
     color: var(--text-primary);
 }
 
 .route-info .arrow-icon {
     color: var(--accent-primary);
+    font-size: 1.5rem;
+    animation: pulse 2s ease-in-out infinite;
 }
 
 .date-info,
@@ -57,28 +63,43 @@
     }
 }
 
-/* Filters Sidebar */
+/* Filters Sidebar - Modern Card Design */
 .filters-sidebar {
     height: fit-content;
     position: sticky;
     top: 100px;
+    background: white;
+    padding: var(--spacing-xl);
+    border-radius: var(--radius-2xl);
+    border: 2px solid var(--border-color);
+    box-shadow: var(--shadow-md);
 }
 
 .filters-sidebar h3 {
-    margin-bottom: var(--spacing-lg);
-    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-xl);
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--text-primary);
 }
 
 .filter-group {
-    margin-bottom: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+    padding-bottom: var(--spacing-lg);
+    border-bottom: 1px solid var(--border-light);
+}
+
+.filter-group:last-child {
+    border-bottom: none;
 }
 
 .filter-label {
     display: block;
-    margin-bottom: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
     font-size: var(--font-size-sm);
-    font-weight: 500;
-    color: var(--text-secondary);
+    font-weight: 600;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 /* Bus List */
@@ -98,18 +119,30 @@
     margin-bottom: var(--spacing-sm);
 }
 
-/* Bus Card */
+/* Bus Card - Modern Elevated Card Design */
 .bus-card {
     padding: 0;
     overflow: hidden;
+    background: white;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-2xl);
+    transition: all var(--transition-base);
+    box-shadow: var(--shadow-md);
+}
+
+.bus-card:hover {
+    border-color: var(--accent-primary);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl), 0 0 30px rgba(59, 130, 246, 0.15);
 }
 
 .bus-header {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    padding: var(--spacing-lg);
-    border-bottom: 1px solid var(--border-color);
+    padding: var(--spacing-xl);
+    border-bottom: 2px solid var(--border-light);
+    background: linear-gradient(135deg, #f8fafc 0%, white 100%);
 }
 
 .bus-name {
@@ -127,15 +160,18 @@
 }
 
 .bus-body {
-    padding: var(--spacing-lg);
+    padding: var(--spacing-xl);
 }
 
-/* Journey Times */
+/* Journey Times - Enhanced Display */
 .journey-times {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+    padding: var(--spacing-lg);
+    background: var(--bg-primary);
+    border-radius: var(--radius-xl);
 }
 
 .time-block {
@@ -145,9 +181,9 @@
 }
 
 .time-block .time {
-    font-size: var(--font-size-xl);
-    font-weight: 700;
-    color: var(--text-primary);
+    font-size: var(--font-size-2xl);
+    font-weight: 800;
+    color: var(--accent-primary);
 }
 
 .time-block .city-label {
@@ -196,11 +232,20 @@
     display: flex;
     align-items: center;
     gap: var(--spacing-xs);
-    padding: var(--spacing-xs) var(--spacing-sm);
-    background: rgba(99, 102, 241, 0.1);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 100%);
+    border: 1px solid rgba(59, 130, 246, 0.3);
     border-radius: var(--radius-full);
     font-size: var(--font-size-xs);
+    font-weight: 600;
     color: var(--accent-primary);
+    transition: all var(--transition-fast);
+}
+
+.amenity-chip:hover {
+    background: var(--accent-primary);
+    color: white;
+    transform: translateY(-2px);
 }
 
 .driver-info {
@@ -220,15 +265,15 @@
     font-size: var(--font-size-xs);
 }
 
-/* Bus Footer */
+/* Bus Footer - Modern Pricing Section */
 .bus-footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: var(--spacing-lg);
-    background: var(--bg-tertiary);
-    border-top: 1px solid var(--border-color);
-    gap: var(--spacing-md);
+    padding: var(--spacing-xl);
+    background: linear-gradient(135deg, #f8fafc 0%, white 100%);
+    border-top: 2px solid var(--border-light);
+    gap: var(--spacing-lg);
     flex-wrap: wrap;
 }
 

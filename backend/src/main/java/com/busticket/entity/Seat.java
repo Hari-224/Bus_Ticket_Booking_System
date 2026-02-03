@@ -5,10 +5,6 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
-/**
- * Seat entity representing individual seats per schedule.
- * Manages seat availability, locking, and booking state.
- */
 @Entity
 @Table(name = "seats", indexes = {
         @Index(name = "idx_seat_schedule", columnList = "schedule_id"),
