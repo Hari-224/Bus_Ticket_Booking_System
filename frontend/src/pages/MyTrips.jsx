@@ -44,7 +44,17 @@ const MyTrips = () => {
         });
     };
 
-    const getStatusBadge = (status) => {
+    const getStatusBadge = (status, departureTime) => {
+        // Check if trip date has passed
+        const tripDate = new Date(departureTime);
+        const today = new Date();
+        const isExpired = tripDate < today;
+        
+        // If trip is confirmed but date has passed, show as completed
+        if (status === 'CONFIRMED' && isExpired) {
+            return <span className="badge badge-success">Completed</span>;
+        }
+        
         const statusConfig = {
             CONFIRMED: { class: 'badge-success', label: 'Confirmed' },
             PENDING: { class: 'badge-warning', label: 'Pending Payment' },
@@ -60,8 +70,10 @@ const MyTrips = () => {
     };
 
     const filteredTrips = trips.filter(trip => {
-        if (filter === 'upcoming') return isUpcoming(trip.journey?.departureTime) && trip.status === 'CONFIRMED';
-        if (filter === 'past') return !isUpcoming(trip.journey?.departureTime) || trip.status !== 'CONFIRMED';
+        const upcoming = isUpcoming(trip.journey?.departureTime);
+        
+        if (filter === 'upcoming') return upcoming && trip.status === 'CONFIRMED';
+        if (filter === 'past') return !upcoming && trip.status === 'CONFIRMED';
         if (filter === 'cancelled') return trip.status === 'CANCELLED';
         return true;
     });
@@ -140,7 +152,7 @@ const MyTrips = () => {
                                         <FaCalendarAlt />
                                         <span>{formatDate(trip.journey?.departureTime)}</span>
                                     </div>
-                                    {getStatusBadge(trip.status)}
+                                    {getStatusBadge(trip.status, trip.journey?.departureTime)}
                                 </div>
 
                                 <div className="trip-body">

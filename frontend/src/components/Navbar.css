@@ -50,6 +50,14 @@
     gap: var(--spacing-lg);
 }
 
+@media (max-width: 768px) {
+    .navbar-links {
+        flex-direction: column;
+        gap: var(--spacing-md);
+        width: 100%;
+    }
+}
+
 .nav-link {
     display: flex;
     align-items: center;
@@ -60,6 +68,14 @@
     text-decoration: none;
     transition: color var(--transition-fast);
     border-radius: var(--radius-md);
+}
+
+@media (max-width: 768px) {
+    .nav-link {
+        width: 100%;
+        justify-content: center;
+        padding: var(--spacing-md);
+    }
 }
 
 .nav-link:hover {

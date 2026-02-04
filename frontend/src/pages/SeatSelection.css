@@ -14,6 +14,13 @@
 @media (max-width: 1024px) {
     .seat-selection-layout {
         grid-template-columns: 1fr;
+        gap: var(--spacing-lg);
+    }
+}
+
+@media (max-width: 640px) {
+    .seat-selection-page {
+        padding-top: var(--spacing-md);
     }
 }
 
@@ -36,6 +43,14 @@
     margin-bottom: var(--spacing-xl);
     flex-wrap: wrap;
     gap: var(--spacing-lg);
+}
+
+@media (max-width: 640px) {
+    .seat-map-header {
+        padding-bottom: var(--spacing-md);
+        margin-bottom: var(--spacing-md);
+        gap: var(--spacing-md);
+    }
 }
 
 .bus-info {
@@ -429,8 +444,8 @@
 
 @media (max-width: 640px) {
     .seat {
-        width: 44px;
-        height: 44px;
+        width: 40px;
+        height: 40px;
     }
 
     .seat-price {
@@ -439,5 +454,32 @@
     
     .legend-item {
         font-size: var(--font-size-xs);
+    }
+    
+    .seat-map-container,
+    .booking-summary {
+        padding: var(--spacing-md);
+    }
+    
+    .seat-legend {
+        gap: var(--spacing-md);
+        padding: var(--spacing-sm);
+    }
+    
+    .legend-seat {
+        width: 24px;
+        height: 24px;
+    }
+    
+    .bus-structure {
+        padding: var(--spacing-md);
+    }
+    
+    .seat-grid {
+        gap: var(--spacing-xs);
+    }
+    
+    .seat-row {
+        gap: var(--spacing-xs);
     }
 }

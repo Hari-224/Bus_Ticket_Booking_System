@@ -99,6 +99,7 @@
     .bus-footer {
         flex-direction: column;
         align-items: stretch;
+        padding: var(--spacing-sm);
     }
 
     .bus-footer .btn {
@@ -112,6 +113,23 @@
     .duration-line {
         width: 60%;
         height: 2px;
+    }
+    
+    .bus-card {
+        border-radius: var(--radius-md);
+    }
+    
+    .bus-body {
+        padding: var(--spacing-sm);
+    }
+    
+    .amenities {
+        gap: var(--spacing-xs);
+    }
+    
+    .amenity-chip {
+        font-size: 0.65rem;
+        padding: 2px var(--spacing-xs);
     }
 }
 

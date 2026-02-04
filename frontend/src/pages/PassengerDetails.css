@@ -14,6 +14,13 @@
 @media (max-width: 1024px) {
     .passenger-details-layout {
         grid-template-columns: 1fr;
+        gap: var(--spacing-lg);
+    }
+}
+
+@media (max-width: 640px) {
+    .passenger-details-page {
+        padding-top: var(--spacing-md);
     }
 }
 
@@ -51,6 +58,13 @@
     padding: var(--spacing-xl);
     border: 1px solid var(--border-color);
     box-shadow: var(--shadow-sm);
+}
+
+@media (max-width: 640px) {
+    .passenger-card {
+        padding: var(--spacing-md);
+        margin-bottom: var(--spacing-md);
+    }
 }
 
 .passenger-header {
