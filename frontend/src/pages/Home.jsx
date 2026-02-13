@@ -208,21 +208,7 @@ const Home = () => {
                     </div>
                 </div>
             </section>
-
-            {/* Footer */}
-            <footer className="footer">
-                <div className="container">
-                    <div className="footer-content">
-                        <div className="footer-brand">
-                            <FaBus className="footer-icon" />
-                            <span>BusEase</span>
-                        </div>
-                        <p className="footer-text">© 2024 BusEase. Made with ❤️ for travelers.</p>
-                    </div>
-                </div>
-            </footer>
         </div>
     );
 };
-
 export default Home;

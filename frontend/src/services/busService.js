@@ -20,7 +20,6 @@ export const searchService = {
         return response.data;
     },
 };
-
 export const seatService = {
     getSeatLayout: async (scheduleId) => {
         const response = await api.get(`/api/seats/${scheduleId}`);
