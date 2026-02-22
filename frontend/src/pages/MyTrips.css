@@ -120,16 +120,17 @@
 }
 
 .trip-body {
-    padding: var(--spacing-md);\n}
+    padding: var(--spacing-md);
+}
 
 /* Trip Route */
 .trip-route {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: var(--spacing-md);\n    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+    gap: var(--spacing-sm);
 }
-
 .route-point {
     display: flex;
     flex-direction: column;
@@ -165,7 +166,9 @@
     color: var(--accent-primary);
     font-size: var(--font-size-sm);
 }
-    font-size: 1.25rem;
+.route-icon {
+    color: var(--accent-primary);
+    font-size: var(--font-size-sm);
 }
 
 /* Trip Details */
