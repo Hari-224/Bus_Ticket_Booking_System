@@ -93,6 +93,7 @@
 }
 
 html {
+  /* Base font size for desktop; will scale down on smaller screens */
   font-size: 16px;
   scroll-behavior: smooth;
 }
@@ -107,6 +108,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden; /* Prevent accidental horizontal scroll */
 }
 
 #root {
@@ -164,6 +166,13 @@ a {
 
 a:hover {
   color: var(--accent-secondary);
+}
+
+/* Images - responsive by default */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
 /* Buttons */
@@ -364,25 +373,37 @@ a:hover {
 .grid-3 { grid-template-columns: repeat(3, 1fr); }
 .grid-4 { grid-template-columns: repeat(4, 1fr); }
 
-/* Responsive Design */
-@media (max-width: 1280px) {
-  .container { padding: 0 var(--spacing-md); }
-}
+/*
+  Global responsive typography & layout
+  Breakpoints:
+  - Mobile: up to 480px
+  - Tablet: 481px – 768px
+  - Small laptops: 769px – 1024px
+  - Desktop: above 1024px
+*/
 
-@media (max-width: 1024px) {
+/* Desktop large (default) already defined above */
+
+/* Small laptops */
+@media (min-width: 769px) and (max-width: 1024px) {
+  html { font-size: 15px; }
   .grid-4 { grid-template-columns: repeat(2, 1fr); }
   .grid-3 { grid-template-columns: repeat(2, 1fr); }
-  html { font-size: 15px; }
 }
 
-@media (max-width: 768px) {
-  .grid-4, .grid-3, .grid-2 { grid-template-columns: 1fr; }
+/* Tablet */
+@media (min-width: 481px) and (max-width: 768px) {
   html { font-size: 14px; }
+  .grid-4, .grid-3, .grid-2 { grid-template-columns: 1fr; }
   .page-container { padding: var(--spacing-lg) 0; }
 }
 
-@media (max-width: 640px) {
+/* Mobile */
+@media (max-width: 480px) {
+  html { font-size: 13px; }
+  .grid-4, .grid-3, .grid-2 { grid-template-columns: 1fr; }
   .container { padding: 0 var(--spacing-sm); }
+  .page-container { padding: var(--spacing-lg) 0; }
 }
 
 /* Flex utilities */
