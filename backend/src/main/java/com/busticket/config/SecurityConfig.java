@@ -2,6 +2,7 @@ package com.busticket.config;
 
 import com.busticket.security.CustomUserDetailsService;
 import com.busticket.security.JwtAuthenticationFilter;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,19 +33,24 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(request -> {
-                    var corsConfig = new org.springframework.web.cors.CorsConfiguration();
-                    corsConfig.addAllowedOrigin("http://localhost:3000");
-                    corsConfig.addAllowedOrigin("http://localhost:5173");
-                    corsConfig.addAllowedOrigin("https://hp-btbs.netlify.app");
-                    corsConfig.addAllowedMethod("*");
-                    corsConfig.addAllowedHeader("*");
-                    corsConfig.setAllowCredentials(true);
-                    return corsConfig;
-                }))
+    var corsConfig = new org.springframework.web.cors.CorsConfiguration();
+
+    corsConfig.setAllowedOriginPatterns(List.of(
+            "http://localhost:*",
+            "https://*.netlify.app"
+    ));
+
+    corsConfig.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+    corsConfig.setAllowedHeaders(List.of("*"));
+    corsConfig.setAllowCredentials(true);
+
+    return corsConfig;
+}))
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         // Public endpoints
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/routes/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/search/**").permitAll()
