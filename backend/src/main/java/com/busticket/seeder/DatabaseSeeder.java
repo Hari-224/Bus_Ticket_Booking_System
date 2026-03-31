@@ -34,36 +34,152 @@ public class DatabaseSeeder implements CommandLineRunner {
     @Override
     @Transactional
     public void run(String... args) {
-        // Check if data already exists
-        if (routeRepository.count() > 0) {
-            log.info("Database already seeded. Skipping...");
-            return;
+                if (routeRepository.count() == 0) {
+                        log.info("Starting initial database seeding...");
+
+                        // Seed Routes
+                        List<Route> routes = seedRoutes();
+                        log.info("Seeded {} routes", routes.size());
+
+                        // Seed Drivers
+                        List<Driver> drivers = seedDrivers();
+                        log.info("Seeded {} drivers", drivers.size());
+
+                        // Seed Buses
+                        List<Bus> buses = seedBuses();
+                        log.info("Seeded {} buses", buses.size());
+
+                        // Seed BusRoutes
+                        List<BusRoute> busRoutes = seedBusRoutes(routes, buses, drivers);
+                        log.info("Seeded {} bus-route mappings", busRoutes.size());
+
+                        // Seed 7-day schedules
+                        int scheduleCount = seedSchedules(busRoutes);
+                        log.info("Seeded {} schedules with seats", scheduleCount);
+                } else {
+                        log.info("Core seed data already exists. Running route/schedule sync...");
+                }
+
+                ensureAllCityRoutesHaveBuses();
+                log.info("Database seeding/sync completed successfully!");
+    }
+
+        private void ensureAllCityRoutesHaveBuses() {
+                List<Route> activeRoutes = routeRepository.findByIsActiveTrue();
+                List<Bus> activeBuses = busRepository.findByIsActiveTrue();
+                List<Driver> activeDrivers = driverRepository.findByIsActiveTrue();
+
+                if (activeRoutes.isEmpty() || activeBuses.isEmpty() || activeDrivers.isEmpty()) {
+                        log.warn("Skipping route coverage sync due to missing active routes/buses/drivers");
+                        return;
+                }
+
+                Set<String> cities = new TreeSet<>();
+                activeRoutes.forEach(route -> {
+                        cities.add(route.getSource());
+                        cities.add(route.getDestination());
+                });
+
+                Map<String, Route> routeByKey = new HashMap<>();
+                for (Route route : activeRoutes) {
+                        routeByKey.put(routeKey(route.getSource(), route.getDestination()), route);
+                }
+
+                List<Route> missingRoutes = new ArrayList<>();
+                for (String source : cities) {
+                        for (String destination : cities) {
+                                if (source.equalsIgnoreCase(destination)) {
+                                        continue;
+                                }
+
+                                String key = routeKey(source, destination);
+                                if (routeByKey.containsKey(key)) {
+                                        continue;
+                                }
+
+                                Route generatedRoute = createGeneratedRoute(source, destination);
+                                missingRoutes.add(generatedRoute);
+                                routeByKey.put(key, generatedRoute);
+                        }
+                }
+
+                if (!missingRoutes.isEmpty()) {
+                        routeRepository.saveAll(missingRoutes);
+                        log.info("Added {} missing city pair routes", missingRoutes.size());
+                }
+
+                List<Route> allRoutes = routeRepository.findByIsActiveTrue();
+                List<BusRoute> newBusRoutes = new ArrayList<>();
+                int rotationIndex = 0;
+
+                for (Route route : allRoutes) {
+                        if (!busRouteRepository.findByRouteAndIsActiveTrue(route).isEmpty()) {
+                                continue;
+                        }
+
+                        Bus bus = activeBuses.get(rotationIndex % activeBuses.size());
+                        Driver driver = activeDrivers.get(rotationIndex % activeDrivers.size());
+
+                        LocalTime departure = LocalTime.of((5 + (rotationIndex * 3) % 18), (rotationIndex % 2) * 30);
+                        int travelMinutes = Math.max(120, (int) Math.round(route.getDurationHours() * 60));
+                        LocalTime arrival = departure.plusMinutes(travelMinutes);
+
+                        double fareMultiplier = 1.0 + (rotationIndex % 3) * 0.05;
+                        newBusRoutes.add(createBusRoute(bus, route, driver, departure, arrival, fareMultiplier));
+                        rotationIndex++;
+                }
+
+                if (!newBusRoutes.isEmpty()) {
+                        busRouteRepository.saveAll(newBusRoutes);
+                        log.info("Added {} missing bus-route mappings", newBusRoutes.size());
+                }
+
+                int schedulesAdded = ensureUpcomingSchedules(busRouteRepository.findAllActive());
+                log.info("Ensured schedules for next 7 days. Added {} new schedules", schedulesAdded);
         }
 
-        log.info("Starting database seeding...");
+        private String routeKey(String source, String destination) {
+                return source.toLowerCase(Locale.ROOT) + "->" + destination.toLowerCase(Locale.ROOT);
+        }
 
-        // Seed Routes
-        List<Route> routes = seedRoutes();
-        log.info("Seeded {} routes", routes.size());
+        private Route createGeneratedRoute(String source, String destination) {
+                int hash = Math.abs(Objects.hash(source.toLowerCase(Locale.ROOT), destination.toLowerCase(Locale.ROOT)));
 
-        // Seed Drivers
-        List<Driver> drivers = seedDrivers();
-        log.info("Seeded {} drivers", drivers.size());
+                int distance = 220 + (hash % 1480); // 220km to 1699km
+                double averageSpeed = 58 + (hash % 13); // 58 to 70 km/h
+                double durationHours = Math.round((distance / averageSpeed) * 10.0) / 10.0;
+                double baseFare = Math.round(Math.max(300.0, (distance * 1.45) + (hash % 120)) * 100.0) / 100.0;
 
-        // Seed Buses
-        List<Bus> buses = seedBuses();
-        log.info("Seeded {} buses", buses.size());
+                return Route.builder()
+                                .source(source)
+                                .destination(destination)
+                                .distance(distance)
+                                .durationHours(durationHours)
+                                .baseFare(baseFare)
+                                .isActive(true)
+                                .build();
+        }
 
-        // Seed BusRoutes
-        List<BusRoute> busRoutes = seedBusRoutes(routes, buses, drivers);
-        log.info("Seeded {} bus-route mappings", busRoutes.size());
+        private int ensureUpcomingSchedules(List<BusRoute> busRoutes) {
+                LocalDate today = LocalDate.now();
+                int createdCount = 0;
 
-        // Seed 7-day schedules
-        int scheduleCount = seedSchedules(busRoutes);
-        log.info("Seeded {} schedules with seats", scheduleCount);
+                for (BusRoute busRoute : busRoutes) {
+                        for (int day = 0; day < 7; day++) {
+                                LocalDate journeyDate = today.plusDays(day);
+                                if (scheduleRepository.existsByBusRouteIdAndJourneyDate(busRoute.getId(), journeyDate)) {
+                                        continue;
+                                }
 
-        log.info("Database seeding completed successfully!");
-    }
+                                Schedule schedule = createSchedule(busRoute, journeyDate, day);
+                                schedule = scheduleRepository.save(schedule);
+                                createSeats(schedule, busRoute.getBus());
+                                createdCount++;
+                        }
+                }
+
+                return createdCount;
+        }
 
     private List<Route> seedRoutes() {
         List<Route> routes = Arrays.asList(

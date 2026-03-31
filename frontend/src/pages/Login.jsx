@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { FaBus, FaEnvelope, FaLock, FaEye, FaEyeSlash } from 'react-icons/fa';
 import toast from 'react-hot-toast';
@@ -17,11 +17,10 @@ const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    const from = location.state?.from?.pathname || '/';
+    const from = location.state?.from?.pathname || '/my-trips';
 
     if (isAuthenticated) {
-        navigate(from, { replace: true });
-        return null;
+        return <Navigate to={from} replace />;
     }
 
     const handleChange = (e) => {

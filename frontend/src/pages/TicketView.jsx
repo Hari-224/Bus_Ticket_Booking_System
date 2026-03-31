@@ -12,6 +12,9 @@ const TicketView = () => {
     const [loading, setLoading] = useState(true);
     const [showCancelModal, setShowCancelModal] = useState(false);
     const [cancelling, setCancelling] = useState(false);
+    const [dummyOtp, setDummyOtp] = useState('');
+    const [enteredOtp, setEnteredOtp] = useState('');
+    const [otpSent, setOtpSent] = useState(false);
 
     useEffect(() => {
         fetchBooking();
@@ -60,13 +63,38 @@ const TicketView = () => {
         });
     };
 
+    const resetCancelState = () => {
+        setShowCancelModal(false);
+        setDummyOtp('');
+        setEnteredOtp('');
+        setOtpSent(false);
+    };
+
+    const sendDummyOtp = () => {
+        const generatedOtp = String(Math.floor(100000 + Math.random() * 900000));
+        setDummyOtp(generatedOtp);
+        setEnteredOtp('');
+        setOtpSent(true);
+        toast.success(`Demo OTP generated: ${generatedOtp}`);
+    };
+
     const handleCancelBooking = async () => {
+        if (!otpSent) {
+            sendDummyOtp();
+            return;
+        }
+
+        if (enteredOtp.trim() !== dummyOtp) {
+            toast.error('Invalid OTP. Please enter the demo OTP shown in the modal.');
+            return;
+        }
+
         setCancelling(true);
         try {
             const response = await bookingService.cancelBooking(pnr);
             if (response.success) {
                 toast.success(response.data.message);
-                setShowCancelModal(false);
+                resetCancelState();
                 fetchBooking();
             }
         } catch (error) {
@@ -291,7 +319,7 @@ const TicketView = () => {
 
                 {/* Cancel Modal */}
                 {showCancelModal && (
-                    <div className="modal-overlay" onClick={() => setShowCancelModal(false)}>
+                    <div className="modal-overlay" onClick={resetCancelState}>
                         <div className="modal-content animate-slideUp" onClick={e => e.stopPropagation()}>
                             <h3>Cancel Booking</h3>
                             <p>Are you sure you want to cancel this booking?</p>
@@ -299,10 +327,26 @@ const TicketView = () => {
                                 Refund will be processed based on cancellation policy.
                                 Cancellations within 24 hours of departure may have reduced refunds.
                             </p>
+
+                            {otpSent && (
+                                <div className="otp-box">
+                                    <p className="otp-label">Demo OTP (for testing only)</p>
+                                    <p className="otp-value">{dummyOtp}</p>
+                                    <input
+                                        type="text"
+                                        value={enteredOtp}
+                                        onChange={(e) => setEnteredOtp(e.target.value.replace(/\D/g, '').slice(0, 6))}
+                                        placeholder="Enter 6-digit OTP"
+                                        className="form-input otp-input"
+                                        disabled={cancelling}
+                                    />
+                                </div>
+                            )}
+
                             <div className="modal-actions">
                                 <button
                                     className="btn btn-secondary"
-                                    onClick={() => setShowCancelModal(false)}
+                                    onClick={resetCancelState}
                                     disabled={cancelling}
                                 >
                                     Keep Booking
@@ -312,7 +356,7 @@ const TicketView = () => {
                                     onClick={handleCancelBooking}
                                     disabled={cancelling}
                                 >
-                                    {cancelling ? 'Cancelling...' : 'Yes, Cancel'}
+                                    {cancelling ? 'Cancelling...' : otpSent ? 'Verify OTP & Cancel' : 'Send OTP'}
                                 </button>
                             </div>
                         </div>

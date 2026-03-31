@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom';
 import { FaExclamationCircle, FaLock, FaTicketAlt } from 'react-icons/fa';
+import { useAuth } from '../context/AuthContext';
 
 const CancellationPage = () => {
+    const { isAuthenticated } = useAuth();
+
     return (
         <div className="page-container">
             <div className="container" style={{ maxWidth: '800px' }}>
@@ -45,8 +48,12 @@ const CancellationPage = () => {
                     </div>
 
                     <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', marginTop: '2rem' }}>
-                        <Link to="/login" className="btn btn-primary">
-                            <FaLock /> Login to Cancel
+                        <Link
+                            to={isAuthenticated ? "/my-trips" : "/login"}
+                            state={isAuthenticated ? undefined : { from: { pathname: '/my-trips' } }}
+                            className="btn btn-primary"
+                        >
+                            <FaLock /> {isAuthenticated ? 'Go to My Trips to Cancel' : 'Login to Cancel'}
                         </Link>
                         <Link to="/view-ticket" className="btn btn-secondary">
                             <FaTicketAlt /> Find Ticket (View Only)

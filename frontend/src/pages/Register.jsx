@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { FaBus, FaUser, FaEnvelope, FaPhone, FaLock, FaEye, FaEyeSlash } from 'react-icons/fa';
 import toast from 'react-hot-toast';
@@ -20,8 +20,7 @@ const Register = () => {
     const [loading, setLoading] = useState(false);
 
     if (isAuthenticated) {
-        navigate('/', { replace: true });
-        return null;
+        return <Navigate to="/" replace />;
     }
 
     const handleChange = (e) => {

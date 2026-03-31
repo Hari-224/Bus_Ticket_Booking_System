@@ -5,7 +5,6 @@ import com.busticket.entity.Bus;
 import com.busticket.entity.Route;
 import com.busticket.entity.Schedule;
 import com.busticket.exception.BadRequestException;
-import com.busticket.exception.ResourceNotFoundException;
 import com.busticket.repository.RouteRepository;
 import com.busticket.repository.ScheduleRepository;
 import com.busticket.repository.SeatRepository;
@@ -42,10 +41,19 @@ public class SearchService {
             throw new BadRequestException("Journey date cannot be more than 6 days from today");
         }
 
-        // Find route
+        // For uncovered source-destination pairs, return an empty result instead of 404.
         Route route = routeRepository.findBySourceAndDestinationIgnoreCase(source, destination)
-                .orElseThrow(() -> new ResourceNotFoundException("Route", "source-destination",
-                        source + " to " + destination));
+            .orElse(null);
+
+        if (route == null) {
+            return SearchResponse.builder()
+                .source(source)
+                .destination(destination)
+                .journeyDate(journeyDate)
+                .totalBuses(0)
+                .buses(List.of())
+                .build();
+        }
 
         // Find schedules for this route and date
         List<Schedule> schedules = scheduleRepository.findByRouteIdAndJourneyDate(route.getId(), journeyDate);

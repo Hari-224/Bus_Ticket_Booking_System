@@ -418,6 +418,36 @@
     border-radius: var(--radius-md);
 }
 
+.otp-box {
+    margin-top: var(--spacing-md);
+    padding: var(--spacing-md);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background: var(--bg-tertiary);
+}
+
+.otp-label {
+    margin: 0 0 var(--spacing-xs) 0;
+    font-size: var(--font-size-xs);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.otp-value {
+    margin: 0 0 var(--spacing-sm) 0;
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: var(--accent-primary);
+    font-family: monospace;
+}
+
+.otp-input {
+    letter-spacing: 0.1em;
+    text-align: center;
+}
+
 .modal-actions {
     display: flex;
     gap: var(--spacing-md);
