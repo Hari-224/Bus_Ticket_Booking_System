@@ -35,6 +35,7 @@ public class SecurityConfig {
                     var corsConfig = new org.springframework.web.cors.CorsConfiguration();
                     corsConfig.addAllowedOrigin("http://localhost:3000");
                     corsConfig.addAllowedOrigin("http://localhost:5173");
+                    corsConfig.addAllowedOrigin("https://hp-btbs.netlify.app/");
                     corsConfig.addAllowedMethod("*");
                     corsConfig.addAllowedHeader("*");
                     corsConfig.setAllowCredentials(true);
