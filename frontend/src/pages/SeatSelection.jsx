@@ -15,7 +15,7 @@ const SeatSelection = () => {
     const [selectedSeats, setSelectedSeats] = useState([]);
     const [loading, setLoading] = useState(true);
     const [locking, setLocking] = useState(false);
-    const [lockExpiry, setLockExpiry] = useState(null);
+    const [lockExpiryEpochMs, setLockExpiryEpochMs] = useState(null);
     const [countdown, setCountdown] = useState(0);
 
     useEffect(() => {
@@ -24,21 +24,21 @@ const SeatSelection = () => {
 
     useEffect(() => {
         let interval;
-        if (lockExpiry) {
+        if (lockExpiryEpochMs) {
             interval = setInterval(() => {
-                const remaining = Math.max(0, Math.floor((new Date(lockExpiry) - new Date()) / 1000));
+                const remaining = Math.max(0, Math.floor((lockExpiryEpochMs - Date.now()) / 1000));
                 setCountdown(remaining);
 
                 if (remaining === 0) {
                     toast.error('Seat lock expired. Please select seats again.');
                     setSelectedSeats([]);
-                    setLockExpiry(null);
+                    setLockExpiryEpochMs(null);
                     fetchSeatLayout();
                 }
             }, 1000);
         }
         return () => clearInterval(interval);
-    }, [lockExpiry]);
+    }, [lockExpiryEpochMs]);
 
     const fetchSeatLayout = async () => {
         try {
@@ -126,7 +126,12 @@ const SeatSelection = () => {
             const response = await seatService.lockSeats(scheduleId, selectedSeats);
             if (response.success) {
                 toast.success(response.data.message);
-                setLockExpiry(response.data.lockExpiryTime);
+
+                // Avoid timezone issues from server LocalDateTime by relying on lock duration.
+                const lockDurationSeconds = Number(response.data.lockDurationSeconds || 300);
+                const lockedAtEpochMs = Date.now();
+                const expiryEpochMs = lockedAtEpochMs + lockDurationSeconds * 1000;
+                setLockExpiryEpochMs(expiryEpochMs);
 
                 // Store booking data and navigate
                 const bookingData = {
@@ -137,6 +142,8 @@ const SeatSelection = () => {
                     busNumber: seatLayout.busNumber,
                     totalFare: response.data.totalFare,
                     lockExpiry: response.data.lockExpiryTime,
+                    lockDurationSeconds,
+                    lockedAtEpochMs,
                 };
                 localStorage.setItem('pendingBooking', JSON.stringify(bookingData));
                 navigate('/passenger-details');

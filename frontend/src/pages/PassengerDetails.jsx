@@ -40,10 +40,21 @@ const PassengerDetails = () => {
         }));
         setPassengers(initialPassengers);
 
-        // Set countdown from lock expiry
-        if (data.lockExpiry) {
+        // Prefer duration-based lock timing to avoid timezone issues across environments.
+        const lockDurationSeconds = Number(data.lockDurationSeconds || 0);
+        const lockedAtEpochMs = Number(data.lockedAtEpochMs || 0);
+
+        let expiryEpochMs = 0;
+        if (lockDurationSeconds > 0 && lockedAtEpochMs > 0) {
+            expiryEpochMs = lockedAtEpochMs + lockDurationSeconds * 1000;
+        } else if (data.lockExpiry) {
+            // Backward compatibility for older pendingBooking format.
+            expiryEpochMs = new Date(data.lockExpiry).getTime();
+        }
+
+        if (expiryEpochMs > 0) {
             const updateCountdown = () => {
-                const remaining = Math.max(0, Math.floor((new Date(data.lockExpiry) - new Date()) / 1000));
+                const remaining = Math.max(0, Math.floor((expiryEpochMs - Date.now()) / 1000));
                 setCountdown(remaining);
                 if (remaining === 0) {
                     toast.error('Seat lock expired. Please select seats again.');
@@ -51,6 +62,7 @@ const PassengerDetails = () => {
                     navigate('/');
                 }
             };
+
             updateCountdown();
             const interval = setInterval(updateCountdown, 1000);
             return () => clearInterval(interval);
