@@ -28,17 +28,26 @@ const Register = () => {
     };
 
     const validateForm = () => {
-        if (!formData.name || !formData.email || !formData.mobile || !formData.password) {
+        const name = formData.name.trim();
+        const email = formData.email.trim();
+        const mobile = formData.mobile.trim();
+
+        if (!name || !email || !mobile || !formData.password) {
             toast.error('Please fill in all fields');
             return false;
         }
 
-        if (!/\S+@\S+\.\S+/.test(formData.email)) {
+        if (name.length < 2 || name.length > 100) {
+            toast.error('Name must be between 2 and 100 characters');
+            return false;
+        }
+
+        if (!/\S+@\S+\.\S+/.test(email)) {
             toast.error('Please enter a valid email address');
             return false;
         }
 
-        if (!/^\d{10}$/.test(formData.mobile)) {
+        if (!/^\d{10}$/.test(mobile)) {
             toast.error('Please enter a valid 10-digit mobile number');
             return false;
         }
@@ -63,11 +72,18 @@ const Register = () => {
 
         setLoading(true);
         try {
-            await register(formData.name, formData.email, formData.mobile, formData.password);
+            await register(
+                formData.name.trim(),
+                formData.email.trim(),
+                formData.mobile.trim(),
+                formData.password
+            );
             toast.success('Registration successful! Welcome to BusEase.');
             navigate('/');
         } catch (error) {
-            const message = error.response?.data?.message || 'Registration failed. Please try again.';
+            const fieldErrors = error.response?.data?.data;
+            const firstFieldError = fieldErrors && Object.values(fieldErrors)[0];
+            const message = firstFieldError || error.response?.data?.message || 'Registration failed. Please try again.';
             toast.error(message);
         } finally {
             setLoading(false);

@@ -37,11 +37,13 @@ const Login = () => {
 
         setLoading(true);
         try {
-            await login(formData.emailOrMobile, formData.password);
+            await login(formData.emailOrMobile.trim(), formData.password);
             toast.success('Welcome back!');
             navigate(from, { replace: true });
         } catch (error) {
-            const message = error.response?.data?.message || 'Login failed. Please try again.';
+            const fieldErrors = error.response?.data?.data;
+            const firstFieldError = fieldErrors && Object.values(fieldErrors)[0];
+            const message = firstFieldError || error.response?.data?.message || 'Login failed. Please try again.';
             toast.error(message);
         } finally {
             setLoading(false);
