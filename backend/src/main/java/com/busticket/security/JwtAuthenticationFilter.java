@@ -30,8 +30,8 @@ protected void doFilterInternal(HttpServletRequest request, HttpServletResponse 
 
     String path = request.getServletPath();
 
-    // ✅ FINAL FIX
-    if (path.startsWith("/api/auth") || request.getMethod().equals("OPTIONS")) {
+    // Bypass JWT only for public auth endpoints.
+    if (path.equals("/api/auth/login") || path.equals("/api/auth/register") || request.getMethod().equals("OPTIONS")) {
         filterChain.doFilter(request, response);
         return;
     }

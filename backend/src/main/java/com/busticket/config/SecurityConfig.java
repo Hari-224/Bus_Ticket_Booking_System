@@ -49,16 +49,25 @@ public class SecurityConfig {
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        // Public endpoints
-                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                        .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/routes/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/search/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/seats/**").permitAll()
-                        // Protected endpoints
-                        .requestMatchers("/api/bookings/**").authenticated()
-                        .requestMatchers(HttpMethod.POST, "/api/seats/**").authenticated()
-                        .anyRequest().authenticated())
+        // Allow preflight
+        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
+        // 🔥 ADD THIS (for UptimeRobot)
+        .requestMatchers("/", "/health").permitAll()
+        .requestMatchers(HttpMethod.HEAD, "/**").permitAll()
+
+        // Public APIs
+        .requestMatchers("/api/auth/**").permitAll()
+        .requestMatchers(HttpMethod.GET, "/api/routes/**").permitAll()
+        .requestMatchers(HttpMethod.GET, "/api/search/**").permitAll()
+        .requestMatchers(HttpMethod.GET, "/api/seats/**").permitAll()
+
+        // Protected APIs
+        .requestMatchers("/api/bookings/**").authenticated()
+        .requestMatchers(HttpMethod.POST, "/api/seats/**").authenticated()
+
+        .anyRequest().authenticated()
+)
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
