@@ -146,9 +146,6 @@
     background: var(--bg-primary);
     border-bottom: 1px solid var(--border-color);
 }
-    background: var(--accent-gradient);
-    color: white;
-}
 
 .ticket-icon {
     font-size: 1.5rem;

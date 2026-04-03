@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { FaBus, FaUser, FaTicketAlt, FaSignOutAlt, FaBars, FaTimes } from 'react-icons/fa';
+import { FaBan, FaBars, FaBus, FaSignOutAlt, FaTicketAlt, FaTimes, FaUser } from 'react-icons/fa';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -46,14 +46,17 @@ const Navbar = () => {
                 {/* Navigation links */}
                 <div className={`navbar-links ${isMenuOpen ? 'is-open' : ''}`}>
                     <Link to="/" className="nav-link" onClick={closeMenu}>Home</Link>
-                    <Link to="/cancellation" className="nav-link" onClick={closeMenu}>Cancellation</Link>
-                    <Link to="/view-ticket" className="nav-link" onClick={closeMenu}>View Ticket</Link>
+                    <Link to="/cancellation" className="nav-link" onClick={closeMenu}>
+                        <FaBan />
+                        <span>Cancellation</span>
+                    </Link>
+                    <Link to="/view-ticket" className="nav-link" onClick={closeMenu}>
+                        <FaTicketAlt />
+                        <span>View Ticket</span>
+                    </Link>
+                    <Link to="/my-trips" className="nav-link" onClick={closeMenu}>My Trips</Link>
                     {isAuthenticated ? (
                         <>
-                            <Link to="/my-trips" className="nav-link" onClick={closeMenu}>
-                                <FaTicketAlt />
-                                <span>My Trips</span>
-                            </Link>
                             <div className="user-menu">
                                 <div className="user-info">
                                     <FaUser className="user-icon" />
