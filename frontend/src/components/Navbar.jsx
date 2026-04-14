@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { FaBan, FaBars, FaBus, FaSignOutAlt, FaTicketAlt, FaTimes, FaUser } from 'react-icons/fa';
 import './Navbar.css';
@@ -8,6 +8,17 @@ const Navbar = () => {
     const { user, isAuthenticated, logout } = useAuth();
     const navigate = useNavigate();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isScrolled, setIsScrolled] = useState(false);
+
+    useEffect(() => {
+        const onScroll = () => {
+            setIsScrolled(window.scrollY > 10);
+        };
+
+        onScroll();
+        window.addEventListener('scroll', onScroll);
+        return () => window.removeEventListener('scroll', onScroll);
+    }, []);
 
     const handleLogout = () => {
         logout();
@@ -24,7 +35,7 @@ const Navbar = () => {
     };
 
     return (
-        <nav className="navbar">
+        <nav className={`navbar ${isScrolled ? 'is-scrolled' : ''}`}>
             <div className="navbar-container">
                 {/* Brand */}
                 <Link to="/" className="navbar-brand" onClick={closeMenu}>
@@ -45,16 +56,16 @@ const Navbar = () => {
 
                 {/* Navigation links */}
                 <div className={`navbar-links ${isMenuOpen ? 'is-open' : ''}`}>
-                    <Link to="/" className="nav-link" onClick={closeMenu}>Home</Link>
-                    <Link to="/cancellation" className="nav-link" onClick={closeMenu}>
+                    <NavLink to="/" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`} onClick={closeMenu}>Home</NavLink>
+                    <NavLink to="/cancellation" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`} onClick={closeMenu}>
                         <FaBan />
                         <span>Cancellation</span>
-                    </Link>
-                    <Link to="/view-ticket" className="nav-link" onClick={closeMenu}>
+                    </NavLink>
+                    <NavLink to="/view-ticket" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`} onClick={closeMenu}>
                         <FaTicketAlt />
                         <span>View Ticket</span>
-                    </Link>
-                    <Link to="/my-trips" className="nav-link" onClick={closeMenu}>My Trips</Link>
+                    </NavLink>
+                    <NavLink to="/my-trips" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`} onClick={closeMenu}>My Trips</NavLink>
                     {isAuthenticated ? (
                         <>
                             <div className="user-menu">
@@ -70,8 +81,8 @@ const Navbar = () => {
                         </>
                     ) : (
                         <>
-                            <Link to="/login" className="nav-link" onClick={closeMenu}>Login</Link>
-                            <Link to="/register" className="btn btn-primary btn-sm" onClick={closeMenu}>Register</Link>
+                            <NavLink to="/login" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`} onClick={closeMenu}>Login</NavLink>
+                            <Link to="/register" className="btn btn-primary btn-sm nav-register" onClick={closeMenu}>Register</Link>
                         </>
                     )}
                 </div>
