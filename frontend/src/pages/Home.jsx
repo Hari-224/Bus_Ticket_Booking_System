@@ -80,11 +80,14 @@ img {
 
 .hero {
     position: relative;
-    min-height: 60vh;
+    --hero-navbar-height: 72px;
+    min-height: calc(100vh - var(--hero-navbar-height));
     display: flex;
     align-items: center;
-    padding: 50px 0 40px;
+    justify-content: center;
+    padding: clamp(10px, 1.8vh, 18px) 0 clamp(26px, 4vh, 40px);
     overflow: hidden;
+
     background:
         radial-gradient(circle at top left, rgba(59, 130, 246, 0.2), transparent 30%),
         radial-gradient(circle at 80% 10%, rgba(14, 165, 233, 0.14), transparent 26%),
@@ -121,33 +124,40 @@ img {
     margin: 0 auto;
     position: relative;
     z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(16px, 2.5vh, 24px);
 }
 
 .hero-text {
     text-align: center;
-    margin-bottom: 24px;
+    margin-bottom: 0;
+    max-width: 900px;
 }
 
 .hero-title {
-    font-size: 32px;
+    font-size: clamp(2.2rem, 3.6vw, 4rem);
     font-weight: 900;
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
     letter-spacing: -0.03em;
-    line-height: 1.12;
+    line-height: 1.08;
     color: #0f172a;
 }
 
 .hero-subtitle {
-    font-size: 0.95rem;
+    font-size: clamp(1rem, 1.35vw, 1.3rem);
     color: #334155;
-    max-width: 100%;
+    max-width: 780px;
     margin: 0 auto;
-    line-height: 1.7;
+    line-height: 1.65;
 }
 
 .search-form {
-    max-width: 100%;
-    margin: 0 auto;
+    width: 100%;
+    max-width: 1024px;
+    margin: clamp(8px, 2vh, 16px) auto 0;
     padding: 16px;
     border-radius: var(--home-radius);
     border: 1px solid rgba(203, 213, 225, 0.8);
@@ -549,9 +559,10 @@ img {
 .feature-badges {
     display: flex;
     justify-content: center;
-    gap: 12px;
+    gap: 12px 14px;
     flex-wrap: wrap;
-    margin-top: 16px;
+    margin-top: 24px;
+    margin-bottom: 4px;
 }
 
 .badge {
@@ -787,16 +798,17 @@ img {
     }
 
     .hero {
-        min-height: 65vh;
-        padding: 60px 0 55px;
+        --hero-navbar-height: 76px;
+        min-height: calc(100vh - var(--hero-navbar-height));
+        padding: clamp(12px, 2vh, 22px) 0 clamp(30px, 4.4vh, 46px);
     }
 
     .hero-title {
-        font-size: 40px;
+        font-size: clamp(2.6rem, 4.4vw, 4rem);
     }
 
     .hero-subtitle {
-        font-size: 1.05rem;
+        font-size: clamp(1.05rem, 1.5vw, 1.25rem);
         max-width: 700px;
     }
 
@@ -919,16 +931,17 @@ img {
     }
 
     .hero {
-        min-height: 70vh;
-        padding: 70px 0 65px;
+        --hero-navbar-height: 82px;
+        min-height: calc(100vh - var(--hero-navbar-height));
+        padding: clamp(14px, 2.2vh, 24px) 0 clamp(32px, 4.8vh, 52px);
     }
 
     .hero-title {
-        font-size: 44px;
+        font-size: clamp(3rem, 4.6vw, 4.35rem);
     }
 
     .hero-subtitle {
-        font-size: 1.1rem;
+        font-size: clamp(1.1rem, 1.2vw, 1.3rem);
         max-width: 700px;
     }
 
@@ -1044,7 +1057,7 @@ img {
     }
 
     .hero-title {
-        font-size: 48px;
+        font-size: clamp(3.2rem, 4.8vw, 4.6rem);
     }
 
     .hero-subtitle {
@@ -1228,21 +1241,21 @@ const Home = () => {
     return (
         <div className="home-page">
             <style>{homeStyles}</style>
-            <section className="hero">
+            <section className="hero flex items-center justify-center">
                 <div className="hero-background">
                     <div className="hero-gradient"></div>
                     <div className="hero-pattern"></div>
                 </div>
 
-                <div className="hero-content container">
-                    <div className="hero-text hero-fade-in">
+                <div className="hero-content container flex w-full flex-col items-center justify-center">
+                    <div className="hero-text hero-fade-in mx-auto text-center">
                         <h1 className="hero-title">
                             Travel Made <span className="bg-gradient-to-r from-blue-600 via-sky-600 to-indigo-600 bg-clip-text text-transparent">Simple</span>
                         </h1>
                         <p className="hero-subtitle">
                             Book bus tickets instantly. Discover comfortable journeys across popular routes with trusted operators.
                         </p>
-                        <div className="feature-badges">
+                        <div className="feature-badges flex flex-wrap items-center justify-center">
                             {trustStats.map((item) => (
                                 <TrustBadge
                                     key={item.label}
@@ -1253,7 +1266,7 @@ const Home = () => {
                         </div>
                     </div>
 
-                    <form className="search-form hero-fade-in-delay" onSubmit={handleSearch}>
+                    <form className="search-form hero-fade-in-delay w-full" onSubmit={handleSearch}>
                         <div className="search-fields">
                             <div className="form-group search-field">
                                 <label className="form-label">
