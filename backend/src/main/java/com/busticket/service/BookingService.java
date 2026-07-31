@@ -41,9 +41,9 @@ public class BookingService {
         Schedule schedule = scheduleRepository.findByIdWithDetails(request.getScheduleId())
                 .orElseThrow(() -> new ResourceNotFoundException("Schedule", "id", request.getScheduleId()));
 
-        // Check if journey date is valid
-        if (schedule.getJourneyDate().isBefore(LocalDate.now())) {
-            throw new BookingException("Cannot book for past dates");
+        // Check if journey date & departure time is valid (closes 1 hour before departure)
+        if (!schedule.getDepartureDateTime().isAfter(LocalDateTime.now().plusHours(1))) {
+            throw new BookingException("Booking closes 1 hour prior to bus departure time.");
         }
 
         // Validate seat count matches passenger count
@@ -387,18 +387,25 @@ public class BookingService {
         seatRepository.saveAll(seats);
     }
 
-    private double calculateRefundPercentage(LocalDateTime departureTime) {
-        long hoursUntilDeparture = java.time.Duration.between(LocalDateTime.now(), departureTime).toHours();
-
-        if (hoursUntilDeparture >= 48) {
-            return 0.95; // 95% refund
-        } else if (hoursUntilDeparture >= 24) {
-            return 0.75; // 75% refund
-        } else if (hoursUntilDeparture >= 6) {
-            return 0.50; // 50% refund
-        } else {
-            return 0.25; // 25% refund
+    public double calculateRefundPercentage(LocalDateTime cancelTime, LocalDateTime departureTime) {
+        if (cancelTime.isAfter(departureTime)) {
+            return 0.0;
         }
+        long hoursUntilDeparture = java.time.Duration.between(cancelTime, departureTime).toHours();
+
+        if (hoursUntilDeparture >= 24) {
+            return 0.90; // 90% refund (10% processing fee)
+        } else if (hoursUntilDeparture >= 12) {
+            return 0.75; // 75% refund (25% fee)
+        } else if (hoursUntilDeparture >= 2) {
+            return 0.50; // 50% refund (50% fee)
+        } else {
+            return 0.0;  // 0% refund (Non-refundable)
+        }
+    }
+
+    private double calculateRefundPercentage(LocalDateTime departureTime) {
+        return calculateRefundPercentage(LocalDateTime.now(), departureTime);
     }
 
     private BookingResponse mapToBookingResponse(Booking booking) {

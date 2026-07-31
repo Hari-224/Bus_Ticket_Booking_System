@@ -72,3 +72,21 @@ export const bookingService = {
         return response.data;
     },
 };
+
+export const aiService = {
+    askQuestion: async (question) => {
+        const response = await api.post('/api/ai/chat', { question });
+        return response.data;
+    },
+
+    reindexPolicies: async () => {
+        const response = await api.post('/api/ai/reindex');
+        return response.data;
+    },
+
+    getHealth: async () => {
+        const response = await api.get('/api/ai/health');
+        return response.data;
+    }
+};
+

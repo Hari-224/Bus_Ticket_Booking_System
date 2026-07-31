@@ -4,6 +4,7 @@ import { useAuth } from './context/AuthContext';
 // Layout
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import AiChatWidget from './components/AiChatWidget';
 
 // Pages
 import Home from './pages/Home';
@@ -76,6 +77,7 @@ function App() {
                     <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>
             </main>
+            <AiChatWidget />
             <Footer />
         </div>
     );

@@ -40,6 +40,10 @@ public class SeatService {
         Schedule schedule = scheduleRepository.findByIdWithDetails(scheduleId)
                 .orElseThrow(() -> new ResourceNotFoundException("Schedule", "id", scheduleId));
 
+        if (!schedule.getDepartureDateTime().isAfter(LocalDateTime.now().plusHours(1))) {
+            throw new BadRequestException("Booking closes 1 hour prior to bus departure time.");
+        }
+
         List<Seat> seats = seatRepository.findByScheduleIdOrderByRowNumberAscColumnNumberAsc(scheduleId);
 
         // Get current user ID if authenticated
@@ -80,8 +84,12 @@ public class SeatService {
         User user = getCurrentUser();
 
         // Validate schedule
-        scheduleRepository.findById(request.getScheduleId())
+        Schedule schedule = scheduleRepository.findById(request.getScheduleId())
                 .orElseThrow(() -> new ResourceNotFoundException("Schedule", "id", request.getScheduleId()));
+
+        if (!schedule.getDepartureDateTime().isAfter(LocalDateTime.now().plusHours(1))) {
+            throw new BadRequestException("Booking closes 1 hour prior to bus departure time.");
+        }
 
         // Release any existing locks by this user
         List<Seat> existingLocks = seatRepository.findLockedSeatsByUserId(user.getId());

@@ -58,7 +58,10 @@ public class SearchService {
         // Find schedules for this route and date
         List<Schedule> schedules = scheduleRepository.findByRouteIdAndJourneyDate(route.getId(), journeyDate);
 
+        java.time.LocalDateTime cutoffTime = java.time.LocalDateTime.now().plusHours(1);
+
         List<SearchResponse.BusScheduleDto> busSchedules = schedules.stream()
+                .filter(schedule -> schedule.getDepartureDateTime().isAfter(cutoffTime))
                 .map(this::mapToScheduleDto)
                 .collect(Collectors.toList());
 
